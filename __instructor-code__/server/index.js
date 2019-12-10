@@ -5,28 +5,25 @@ const express = require('express'),
       authCtrl = require('./authController'),
       {SERVER_PORT, CONNECTION_STRING, SESSION_SECRET} = process.env,
       app = express();
-      
+
 app.use(express.json());
 app.use(session({
-    resave: false, 
+    resave: false,
     saveUninitialized: true,
-    cookie: {maxAge: 1000 * 60 *60},
-    secret: SESSION_SECRET
+    cookie: {maxAge: 1000 * 60 * 60},
+    secret: SESSION_SECRET 
 }))
 
 massive(CONNECTION_STRING).then(db => {
     app.set('db', db)
-    console.log('yay the DB is connected!')
+    console.log('DB connected')
 })
 
-//AUTH ENDPOINTS
+//auth endpoints
 app.post('/api/login', authCtrl.login);
 app.post('/api/register', authCtrl.register);
 app.post('/api/logout', authCtrl.logout);
 app.get('/api/user', authCtrl.getUser);
 
-
 const port = SERVER_PORT;
-app.listen(port, () => console.log(`Running wild on ${port}`));
-
-
+app.listen(port, () => console.log(`Server running on ${port}`));

@@ -1,20 +1,19 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom';
 import Header from './Components/Header';
-import routes from './routes'
+import routes from './routes';
 import './App.css';
 
 function App(props) {
-  console.log(props)
   return (
     <div className="App">
       {props.location.pathname === '/' || props.location.pathname === '/register'
       ? (<>
-        {routes}
-      </>)
+          {routes}
+        </>)
       : (<>
-        <Header />
-        {routes}
+          <Header />
+          {routes}
         </>)}
     </div>
   );
